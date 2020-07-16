@@ -28,13 +28,13 @@ namespace FourPlugin.ProjectInitialization
             RibbonPanel ribbonPanel = application.CreateRibbonPanel(m_TabName, "项目初始化");
 
             //设置
-            PushButtonData pbd_Settings = new PushButtonData("FourPlugin_ProjectInitialization_Settings", "设置", Assembly.GetExecutingAssembly().Location, "com1")
+            PushButtonData pbd_Settings = new PushButtonData("FourPlugin_ProjectInitialization_Settings", "设置", Assembly.GetExecutingAssembly().Location, "FourPlugin.ProjectInitialization.Settings")
             {
                 ToolTip = "定义一些信息，用于作为初始化的依据"
             };
             ribbonPanel.AddItem(pbd_Settings);
             //资源初始化
-            PushButtonData pbd_BasicInitialization = new PushButtonData("FourPlugin_ProjectInitialization_BasicInitialization", "资源初始化", Assembly.GetExecutingAssembly().Location, "com1")
+            PushButtonData pbd_BasicInitialization = new PushButtonData("FourPlugin_ProjectInitialization_BasicInitialization", "资源初始化", Assembly.GetExecutingAssembly().Location, "FourPlugin.ProjectInitialization.InitializtionD1Test")
             {
                 ToolTip = "初始化项目模板和族"
             };

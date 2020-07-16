@@ -19,7 +19,7 @@ namespace FourPlugin.RPackaging
             Document doc = commandData.Application.ActiveUIDocument.Document;
 
             #region 检查当前文档，判断打包方案
-            
+            //test
 
 
             #endregion

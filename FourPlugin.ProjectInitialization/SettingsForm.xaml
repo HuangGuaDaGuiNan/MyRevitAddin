@@ -1,0 +1,38 @@
+﻿<Window x:Class="FourPlugin.ProjectInitialization.SettingsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FourPlugin.ProjectInitialization"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Width="300" Height="200" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Btn_DefineBox" Content="定义范围框" Click="Btn_DefineBox_Click"></Button>
+                <Label x:Name="Lab_BoxId" Content="未定义"></Label>
+            </StackPanel>
+            <ComboBox x:Name="ComboBox_System" Margin="0,4,0,0" DisplayMemberPath="Name" SelectedValuePath="Code" SelectedItem="{Binding projectFeatureCode.dataSystem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_System_SelectionChanged"/>
+            <ComboBox x:Name="ComboBox_Plan" Margin="0,4,0,0" DisplayMemberPath="Name" SelectedValuePath="Code" IsEnabled="False"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button x:Name="Btn_Cancel" IsCancel="True" Content="取消" MinWidth="65" Click="Btn_Cancel_Click"/>
+            <Button x:Name="Btn_Ok" Content="确定" MinWidth="65" Margin="4,0,0,0" Click="Btn_Ok_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
