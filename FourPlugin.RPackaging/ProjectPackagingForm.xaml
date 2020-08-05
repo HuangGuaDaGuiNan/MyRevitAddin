@@ -22,9 +22,16 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Column="1" LastChildFill="True" Grid.Row="1">
-            <Button x:Name="Btn_" DockPanel.Dock="Right" MinWidth="50" Content="浏览..."></Button>
-            <TextBox></TextBox>
+            <Button x:Name="Btn_BrowsePath" DockPanel.Dock="Right" MinWidth="50" Content="浏览..."></Button>
+            <TextBox x:Name="TBox_SavePath"></TextBox>
         </DockPanel>
+        <StackPanel Grid.Column="1" Grid.Row="5" FlowDirection="RightToLeft" Orientation="Horizontal">
+            <Button x:Name="Btn_Cancel" IsCancel="True" MinWidth="50" Margin="0,0,4,0" Content="取消"></Button>
+            <Button x:Name="Btn_Ok" IsEnabled="False" MinWidth="50" Content="确定"></Button>
+        </StackPanel>
+        <WrapPanel Grid.Column="1" Grid.Row="3">
+            <CheckBox x:Name="CBox_"></CheckBox>
+        </WrapPanel>
 
     </Grid>
 </Window>

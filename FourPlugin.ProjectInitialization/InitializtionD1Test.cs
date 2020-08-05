@@ -32,47 +32,54 @@ namespace FourPlugin.ProjectInitialization
                 return Result.Failed;
             }
 
-            //打开样板文档
-            Document templateResDoc = uidoc.Application.Application.OpenDocumentFile(PathHelper.ResourcePath.TemplateResPath);
-
-            using(Transaction tran=new Transaction(doc))
+            string keyStr = "D1";
+            test1 test1Form = new test1();
+            if (test1Form.ShowDialog() == true)
             {
-                tran.Start("初始化资源");
+                keyStr = test1Form.Key;
 
-                //线样式
-                CopyLineElement(templateResDoc, doc);
-                //视图样板
-                CopyViewTemplate(templateResDoc, doc);
-                //载入族
-                DirectoryInfo directoryInfo = new DirectoryInfo(PathHelper.ResourcePath.FamilyLibraryPath);
-                foreach(FileInfo fileInfo in directoryInfo.GetFiles("*.rfa"))
+                //打开样板文档
+                Document templateResDoc = uidoc.Application.Application.OpenDocumentFile(PathHelper.ResourcePath.TemplateResPath);
+
+                using (Transaction tran = new Transaction(doc))
                 {
-                    LoadFamily(doc, fileInfo.FullName);
-                }
-                //初始化设计说明
-                FilteredElementCollector elems = new FilteredElementCollector(doc);
-                foreach (FamilySymbol titleBlackType in elems.OfClass(typeof(FamilySymbol)).OfCategory(BuiltInCategory.OST_TitleBlocks))
-                {
-                    if (titleBlackType.Name == "LH-A3图框" && titleBlackType.FamilyName == "LH-A3图框")
+                    tran.Start("初始化资源");
+
+                    //线样式
+                    CopyLineElement(templateResDoc, doc);
+                    //视图样板
+                    CopyViewTemplate(templateResDoc, doc);
+                    //载入族
+                    DirectoryInfo directoryInfo = new DirectoryInfo(PathHelper.ResourcePath.FamilyLibraryPath);
+                    foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.rfa"))
                     {
-                        FilteredElementCollector views = new FilteredElementCollector(templateResDoc);
-                        foreach (ViewSheet vs in views.OfClass(typeof(ViewSheet)))
-                        {
-                            if (vs.Name.StartsWith("D-02") || vs.Name.StartsWith("D1_"))
-                            {
-                                CreateGeneralDrawing(templateResDoc, doc, titleBlackType.Id, vs);
-                            }
-                        }
-
-                        break;
+                        LoadFamily(doc, fileInfo.FullName);
                     }
+                    //初始化设计说明
+                    FilteredElementCollector elems = new FilteredElementCollector(doc);
+                    foreach (FamilySymbol titleBlackType in elems.OfClass(typeof(FamilySymbol)).OfCategory(BuiltInCategory.OST_TitleBlocks))
+                    {
+                        if (titleBlackType.Name == "LH-A3图框" && titleBlackType.FamilyName == "LH-A3图框")
+                        {
+                            FilteredElementCollector views = new FilteredElementCollector(templateResDoc);
+                            foreach (ViewSheet vs in views.OfClass(typeof(ViewSheet)))
+                            {
+                                if (vs.SheetNumber.StartsWith("D-02") || vs.SheetNumber.StartsWith(keyStr))
+                                {
+                                    CreateGeneralDrawing(templateResDoc, doc, titleBlackType.Id, vs);
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                    tran.Commit();
                 }
 
-                tran.Commit();
+                //关闭样板文档
+                templateResDoc.Close(false);
             }
-
-            //关闭样板文档
-            templateResDoc.Close(false);
 
             return Result.Succeeded;
         }
@@ -139,7 +146,7 @@ namespace FourPlugin.ProjectInitialization
             try
             {
                 ViewSheet destiationView = ViewSheet.Create(destinationDocument, titleBlockTypeId);
-                destiationView.SheetNumber = viewSheet.SheetNumber.Replace("D1_", "");
+                destiationView.SheetNumber = viewSheet.SheetNumber.Replace("D1_", "").Replace("D2_", "");
                 destiationView.Name = viewSheet.Name;
 
                 IList<ElementId> copyElemIdList = new List<ElementId>();

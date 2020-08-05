@@ -20,8 +20,7 @@ namespace FourPlugin
         public FourApplication()
         {
             //载入DLL
-            string moduleLibraryPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\module";
-            foreach (string pluginFile in Directory.GetFiles(moduleLibraryPath, "*.dll"))
+            foreach (string pluginFile in Directory.GetFiles(Constants.ModuleLibraryFolder, "*.dll"))
             {
                 Assembly assembly = Assembly.LoadFile(pluginFile);
                 foreach(Type type in assembly.GetTypes())
@@ -41,7 +40,7 @@ namespace FourPlugin
             foreach (var plugin in plugins)
             {
                 Type type = plugin.GetType();
-                ; MethodInfo onShutdown = type.GetMethod("OnShutdown");
+                MethodInfo onShutdown = type.GetMethod("OnShutdown");
                 onShutdown.Invoke(plugin, new object[] { application });
             }
 
