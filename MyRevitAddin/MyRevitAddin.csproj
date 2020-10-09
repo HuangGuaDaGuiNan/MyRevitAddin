@@ -56,6 +56,11 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="CopyLegendView.cs" />
+    <Compile Include="Demo1.cs" />
+    <Compile Include="Demo2.cs" />
+    <Compile Include="Demo3Form.xaml.cs">
+      <DependentUpon>Demo3Form.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModifyValue.cs" />
     <Compile Include="ModifyValueForm.xaml.cs">
       <DependentUpon>ModifyValueForm.xaml</DependentUpon>
@@ -63,6 +68,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Demo3Form.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModifyValueForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
